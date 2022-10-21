@@ -2,7 +2,7 @@
 
 Add repository:
 
-```
+```xml
 <repositories>
   <repository>
     <id>repsy</id>
@@ -12,7 +12,7 @@ Add repository:
 ```
 
 Add dependency:
-```
+```xml
 <dependency>
   <groupId>com.github.drwolf-oss</groupId>
   <artifactId>quarkus-utils</artifactId>
@@ -22,9 +22,9 @@ Add dependency:
 
 ## GIT info
 
-Add git-info plugin top pom.xml
+Add git-info plugin to pom.xml
 
-```
+```xml
 <plugin>
     <groupId>io.github.git-commit-id</groupId>
     <artifactId>git-commit-id-maven-plugin</artifactId>

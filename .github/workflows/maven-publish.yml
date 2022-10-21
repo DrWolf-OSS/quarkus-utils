@@ -25,4 +25,4 @@ jobs:
           cache: maven
 
     - name: Publish to Repsy
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Drepo.login=${{ secrets.user }} -Drepo.pwd=${{ secrets.password }}
+      run: mvn deploy -s $GITHUB_WORKSPACE/repsy-settings.xml -Drepo.login=${{ secrets.user }} -Drepo.pwd=${{ secrets.password }}

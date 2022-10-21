@@ -16,7 +16,7 @@ Add dependency:
 <dependency>
   <groupId>com.github.drwolf-oss</groupId>
   <artifactId>quarkus-utils</artifactId>
-  <version>${quarkus.platform.version}.4</version> <!-- check version!! -->
+  <version>${quarkus.platform.version}.3</version> <!-- check version!! https://github.com/DrWolf-OSS/quarkus-utils/blob/main/pom.xml  -->
 </dependency>
 ```
 

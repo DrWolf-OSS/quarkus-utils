@@ -69,18 +69,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
-                <configuration>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <compilerArguments>
-                        <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

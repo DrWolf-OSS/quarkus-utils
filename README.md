@@ -25,7 +25,7 @@ Add dependency:
 
 The library provides
 [CustomExceptionHandler](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/utils/CustomExceptionHandler.java) 
-which will catch and log any `Exception`, if you throw subclasses of [WebApplicationException](https://docs.oracle.com/javaee/7/api/javax/ws/rs/package-tree.html) the handle will return the proper status code
+which will catch and log any `Exception`, if you throw subclasses of [WebApplicationException](https://docs.oracle.com/javaee/7/api/javax/ws/rs/package-tree.html) the handler will return the proper status code
 
 
 ## GIT info
@@ -79,7 +79,7 @@ public class YourEntity extends BaseEntity<Long> {
 
 ```java
 @ApplicationScoped
-@Unremovable // As repository is injecte via reflection in the resource this annotation is needed
+@Unremovable // As repository is injected via reflection in the resource this annotation is needed
 public class YourRepository extends PanacheRepositoryBase<User, Long> {
   ...
 }}

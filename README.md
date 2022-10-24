@@ -3,12 +3,12 @@
 Add repository:
 
 ```xml
-    <repositories>
-        <repository>
-            <id>drwolf maven public</id>
-            <url>https://drwolf-maven-public.s3.eu-west-1.amazonaws.com</url>
-        </repository>
-    </repositories>
+<repositories>
+  <repository>
+    <id>drwolf maven public</id>
+    <url>https://drwolf-maven-public.s3.eu-west-1.amazonaws.com</url>
+  </repository>
+</repositories>
 ```
 
 Add dependency:
@@ -56,7 +56,7 @@ Add git-info plugin to pom.xml
 @ Startup do
 
 ```java
-		GitResource.loadInfo(this.getClass().getClassLoader().getResourceAsStream("git.json"));
+GitResource.loadInfo(this.getClass().getClassLoader().getResourceAsStream("git.json"));
 ```
 
 ## Entities:

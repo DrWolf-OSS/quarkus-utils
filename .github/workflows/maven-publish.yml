@@ -25,4 +25,12 @@ jobs:
           cache: maven
 
     - name: Publish to Repsy
-      run: mvn deploy -s $GITHUB_WORKSPACE/repsy-settings.xml -Drepo.login=${{ secrets.user }} -Drepo.pwd=${{ secrets.password }}
+      run: mvn install -Dmaven.repo.local=./target/repo -DcreateChecksum=true
+
+    - uses: shallwefootball/s3-upload-action@master
+      with:
+        aws_key_id: ${{ secrets.AWS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+        aws_bucket: 'drwolf-maven-public'
+        source_dir: 'target/repo/com/github/drwolf-oss/quarkus-utils'
+        destination_dir: 'com/github/drwolf-oss/quarkus-utils'

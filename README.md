@@ -79,7 +79,7 @@ public class YourEntity extends BaseEntity<Long> {
 
 ```java
 @ApplicationScoped
-@Unremovable <!-- As repository is injecte via reflection in the resource this annotation is needed -->
+@Unremovable // As repository is injecte via reflection in the resource this annotation is needed
 public class YourRepository extends PanacheRepositoryBase<User, Long> {
   ...
 }}

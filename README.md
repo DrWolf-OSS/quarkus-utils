@@ -21,6 +21,13 @@ Add dependency:
 </dependency>
 ```
 
+## Exception Handling
+
+The library provides
+[CustomExceptionHandler](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/utils/CustomExceptionHandler.java) 
+which will catch and log any `Exception`, if you throw subclasses of [WebApplicationException](https://docs.oracle.com/javaee/7/api/javax/ws/rs/package-tree.html) the handle will return the proper status code
+
+
 ## GIT info
 
 Add git-info plugin to pom.xml

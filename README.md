@@ -69,14 +69,27 @@ GitResource.loadInfo(this.getClass().getClassLoader().getResourceAsStream("git.j
 ## Entities:
 
 ```java
+@Entity
 public class YourEntity extends BaseEntity<Long> {
  ...
 }
 ```
 
+## Repository:
+
+```java
+@ApplicationScoped
+@Unremovable <!-- As repository is injecte via reflection in the resource this annotation is needed -->
+public class YourRepository extends PanacheRepositoryBase<User, Long> {
+  ...
+}}
+
+```
+
 ## Resources:
 
 ```java
+@Path("/your-resource")
 public class YourResource extends CrudResource<YourRepository, YourEntity, Long> {
   ...
 }}

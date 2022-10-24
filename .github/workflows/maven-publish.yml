@@ -27,11 +27,12 @@ jobs:
     - name: Maven install
       run: mvn -q install -Dmaven.repo.local=./target/repo -DcreateChecksum=true
 
-    - uses: shallwefootball/s3-upload-action@master
+    - uses: jakejarvis/s3-sync-action@master
       name: Upload to S3
       with:
-        aws_key_id: ${{ secrets.AWS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-        aws_bucket: 'drwolf-maven-public'
-        source_dir: 'target/repo/com/github/drwolf-oss/quarkus-utils'
-        destination_dir: 'com/github/drwolf-oss/quarkus-utils'
+        AWS_S3_BUCKET: 'drwolf-maven-public'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-west-1' 
+        SOURCE_DIR: 'target/repo/com/github/drwolf-oss/quarkus-utils'
+        DEST_DIR: 'com/github/drwolf-oss/quarkus-utils'

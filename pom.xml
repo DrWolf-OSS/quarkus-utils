@@ -20,14 +20,6 @@
 
     <version>${quarkus.platform.version}.3</version>
 
-    <distributionManagement>
-        <repository>
-            <id>repsy</id>
-            <name>Repsy Cloud Repo</name>
-            <url>https://repo.repsy.io/mvn/agea/default</url>
-        </repository>
-    </distributionManagement>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

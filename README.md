@@ -6,7 +6,7 @@ Add repository:
 <repositories>
   <repository>
     <id>drwolf maven public</id>
-    <url>https://drwolf-maven-public.s3.eu-west-1.amazonaws.com</url>
+    <url>https://maven.drwolf.it</url>
   </repository>
 </repositories>
 ```

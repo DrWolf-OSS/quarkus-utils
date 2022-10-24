@@ -3,12 +3,12 @@
 Add repository:
 
 ```xml
-<repositories>
-  <repository>
-    <id>repsy</id>
-    <url>https://repsy.io/mvn/agea/default</url>
-  </repository>
-</repositories>
+    <repositories>
+        <repository>
+            <id>drwolf maven public</id>
+            <url>https://drwolf-maven-public.s3.eu-west-1.amazonaws.com</url>
+        </repository>
+    </repositories>
 ```
 
 Add dependency:

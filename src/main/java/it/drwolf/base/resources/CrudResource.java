@@ -3,6 +3,7 @@ package it.drwolf.base.resources;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
+import it.drwolf.base.model.dtos.PageDTO;
 import it.drwolf.base.model.entities.BaseEntity;
 import it.drwolf.base.utils.HasLogger;
 
@@ -43,8 +44,8 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 		return this.repository;
 	}
 
-	public List<E> list(int page, Integer size, String sort) {
-		return this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list();
+	public PageDTO<E> list(int page, Integer size, String sort) {
+		return  new PageDTO<E>(page,this.getRepository().count(), this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list());
 	}
 
 	public E update(I id, E entity) {

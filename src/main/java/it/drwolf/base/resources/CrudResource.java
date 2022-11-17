@@ -45,7 +45,7 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 	}
 
 	public PageDTO<E> list(int page, Integer size, String sort) {
-		return  new PageDTO<E>(page,this.getRepository().count(), this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list());
+		return  new PageDTO<E>(page, size, this.getRepository().count(), this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list());
 	}
 
 	public E update(I id, E entity) {

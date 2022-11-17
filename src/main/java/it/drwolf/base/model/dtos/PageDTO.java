@@ -7,4 +7,4 @@ import java.util.List;
 
 @JsonSerialize
 @RegisterForReflection
-public record PageDTO<T>(Integer page, Long count, List<T> data) { }
+public record PageDTO<T>(Integer page, Integer size, Long count, List<T> data) { }

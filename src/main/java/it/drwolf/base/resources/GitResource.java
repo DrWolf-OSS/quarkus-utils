@@ -18,7 +18,7 @@ public class GitResource implements HasLogger {
 	public static void loadInfo(InputStream inputStream){
 		try {
 			info =new ObjectMapper().readValue(inputStream,Map.class);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			HasLogger.logger(GitResource.class).error(e.getMessage(),e);
 		}
 	}

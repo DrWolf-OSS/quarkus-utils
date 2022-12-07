@@ -21,9 +21,15 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 	protected final T repository;
 
 	public CrudResource() {
+		ParameterizedType genericSuperclass = null;
+		try {
+			genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+		} catch (Exception e) {
+			genericSuperclass = (ParameterizedType) ((Class<?>) this.getClass().getGenericSuperclass()).getGenericSuperclass();
+		}
+		Class<T> actualTypeArgument = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 		this.repository = CDI.current()
-				.select((Class<T>) ((ParameterizedType) ((Class<?>) this.getClass()
-						.getGenericSuperclass()).getGenericSuperclass()).getActualTypeArguments()[0])
+				.select(actualTypeArgument)
 				.get();
 	}
 

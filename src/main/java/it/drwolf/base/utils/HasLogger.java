@@ -6,7 +6,7 @@ public interface HasLogger {
 	default Logger logger() {
 		return Logger.getLogger(this.getClass());
 	}
-	 static Logger logger(Class<?> cls) {
+	static Logger logger(Class<?> cls) {
 		return Logger.getLogger(cls);
 	}
 }

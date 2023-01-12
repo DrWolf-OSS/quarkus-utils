@@ -17,22 +17,15 @@ import java.util.stream.Stream;
 
 @Provider
 public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLogger {
-
-
-
-
-
 	@Override
 	public Response toResponse(Exception e) {
 		Response.ResponseBuilder builder;
 
-
 		HttpServerRequest request = ResteasyProviderFactory.getInstance().getContextData(HttpServerRequest.class);
 
-		//this.logger().error(e.getMessage());
 		StringWriter sw = new StringWriter();
 		e.printStackTrace(new PrintWriter(sw));
-		this.logger().error(Stream.concat(Stream.of(request.uri()),sw.toString().lines().limit(10)).collect(Collectors.joining("\n")) );
+		this.logger().error(Stream.concat(Stream.of(request.method() + " " +request.uri()),sw.toString().lines().limit(10)).collect(Collectors.joining("\n")) );
 
 		if (e instanceof WebApplicationException) {
 			WebApplicationException wae = (WebApplicationException) e;

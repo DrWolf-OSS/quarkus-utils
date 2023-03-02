@@ -1,14 +1,19 @@
 package it.drwolf.base.utils;
 
 import io.quarkus.runtime.StartupEvent;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.event.Observes;
 import java.util.TimeZone;
 
 public class StartUp implements HasLogger {
+
+	@ConfigProperty(name = "quarkus-utils.timezone", defaultValue="UTC")
+	String tz;
+
 	void onStart(@Observes StartupEvent event) {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-		logger().infof("Timezone set to UTC");
+		TimeZone.setDefault(TimeZone.getTimeZone(tz));
+		logger().infof("Timezone set to %s",tz);
 	}
 
 }

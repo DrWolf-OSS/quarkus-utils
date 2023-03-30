@@ -1,6 +1,7 @@
 package it.drwolf.base.utils;
 
 import io.vertx.core.http.HttpServerRequest;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
@@ -17,6 +18,10 @@ import java.util.stream.Stream;
 
 @Provider
 public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLogger {
+
+	@ConfigProperty(name = "quarkus-utils.stack-trace-limit", defaultValue="20")
+	Integer limit;
+
 	@Override
 	public Response toResponse(Exception e) {
 		Response.ResponseBuilder builder;
@@ -25,7 +30,7 @@ public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLo
 
 		StringWriter sw = new StringWriter();
 		e.printStackTrace(new PrintWriter(sw));
-		this.logger().error(Stream.concat(Stream.of(request.method() + " " +request.uri()),sw.toString().lines().limit(10)).collect(Collectors.joining("\n")) );
+		this.logger().error(Stream.concat(Stream.of(request.method() + " " +request.uri()),sw.toString().lines().limit(limit)).collect(Collectors.joining("\n")) );
 
 		if (e instanceof WebApplicationException) {
 			WebApplicationException wae = (WebApplicationException) e;

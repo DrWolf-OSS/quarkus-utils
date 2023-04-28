@@ -29,12 +29,21 @@ which will catch and log any `Exception`, if you throw subclasses of [WebApplica
 
 (the stack trace is limited at 20 rows by default, see options below)
 
+
+## JWT in queryParam
+
+The library provides [QueryFilter](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/filters/QueryFilter.java)
+which will let you pass the JWT as as the queryParam `token` in requests  (`?token=babecafedeadbeef`)
+
+(you can disable the filter, see options below)
+
 ## Default configuration options 
 You can override the options in your application
 ```
 quarkus-utils.timezone=UTC
 quarkus-utils.locale=en
 quarkus-utils.stack-trace-limit=20
+quarkus-utils.disable-query-filter=false
 ```
 
 ## GIT info

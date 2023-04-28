@@ -1,5 +1,7 @@
 package it.drwolf.base.model.entities;
 
+import java.util.Optional;
+
 public abstract class BaseEntity<T> {
 
 	@Override
@@ -12,6 +14,7 @@ public abstract class BaseEntity<T> {
 	}
 
 	public abstract T getId();
+
 
 	@Override
 	public int hashCode() {

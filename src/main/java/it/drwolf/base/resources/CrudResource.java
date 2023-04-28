@@ -6,12 +6,11 @@ import io.quarkus.panache.common.Sort;
 import it.drwolf.base.model.dtos.PageDTO;
 import it.drwolf.base.model.entities.BaseEntity;
 import it.drwolf.base.utils.HasLogger;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.NotFoundException;
 
-import javax.enterprise.inject.spi.CDI;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
 public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E extends BaseEntity<I>, I>
 		implements HasLogger {
@@ -25,12 +24,11 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 		try {
 			genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
 		} catch (Exception e) {
-			genericSuperclass = (ParameterizedType) ((Class<?>) this.getClass().getGenericSuperclass()).getGenericSuperclass();
+			genericSuperclass = (ParameterizedType) ((Class<?>) this.getClass()
+					.getGenericSuperclass()).getGenericSuperclass();
 		}
 		Class<T> actualTypeArgument = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-		this.repository = CDI.current()
-				.select(actualTypeArgument)
-				.get();
+		this.repository = CDI.current().select(actualTypeArgument).get();
 	}
 
 	public E add(E entity) {
@@ -51,7 +49,8 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 	}
 
 	public PageDTO<E> list(int page, Integer size, String sort) {
-		return  new PageDTO<E>(page, size, this.getRepository().count(), this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list());
+		return new PageDTO<E>(page, size, this.getRepository().count(),
+				this.getRepository().findAll(Sort.by(sort)).page(Page.of(page, size)).list());
 	}
 
 	public E update(I id, E entity) {

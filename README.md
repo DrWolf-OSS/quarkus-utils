@@ -130,8 +130,8 @@ Simple generic tuple records (2-6 elements)
 
 ```java
 new TupleOf2<String, Integer>("name",total);
-		new TupleOf3<String, String, Integer>("firstname","lastname",total);
-		...
+new TupleOf3<String, String, Integer>("firstname","lastname",total);
+...
 ```
 
 ## DateUtils

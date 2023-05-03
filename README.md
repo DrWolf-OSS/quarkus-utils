@@ -3,42 +3,49 @@
 Add repository:
 
 ```xml
+
 <repositories>
-  <repository>
-    <id>drwolf maven public</id>
-    <url>https://maven.drwolf.it</url>
-  </repository>
+    <repository>
+        <id>drwolf maven public</id>
+        <url>https://maven.drwolf.it</url>
+    </repository>
 </repositories>
 ```
 
 Add dependency:
+
 ```xml
+
 <dependency>
-  <groupId>com.github.drwolf-oss</groupId>
-  <artifactId>quarkus-utils</artifactId>
-  <!-- check available tags: https://github.com/DrWolf-OSS/quarkus-utils/tags -->
-  <version>${quarkus.platform.version}.3</version> 
+    <groupId>com.github.drwolf-oss</groupId>
+    <artifactId>quarkus-utils</artifactId>
+    <!-- check available tags: https://github.com/DrWolf-OSS/quarkus-utils/tags -->
+    <version>${quarkus.platform.version}.3</version>
 </dependency>
 ```
 
 ## Exception Handling
 
 The library provides
-[CustomExceptionHandler](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/utils/CustomExceptionHandler.java) 
-which will catch and log any `Exception`, if you throw subclasses of [WebApplicationException](https://docs.oracle.com/javaee/7/api/javax/ws/rs/package-tree.html) the handler will return the proper status code
+[CustomExceptionHandler](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/utils/CustomExceptionHandler.java)
+which will catch and log any `Exception`, if you throw subclasses
+of [WebApplicationException](https://docs.oracle.com/javaee/7/api/javax/ws/rs/package-tree.html) the handler will return
+the proper status code
 
 (the stack trace is limited at 20 rows by default, see options below)
 
-
 ## JWT in queryParam
 
-The library provides [QueryFilter](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/filters/QueryFilter.java)
+The library
+provides [QueryFilter](https://github.com/DrWolf-OSS/quarkus-utils/blob/main/src/main/java/it/drwolf/base/filters/QueryFilter.java)
 which will let you pass the JWT as as the queryParam `token` in requests  (`?token=babecafedeadbeef`)
 
 (you can disable the filter, see options below)
 
-## Default configuration options 
+## Default configuration options
+
 You can override the options in your application
+
 ```
 quarkus-utils.timezone=UTC
 quarkus-utils.locale=en
@@ -51,6 +58,7 @@ quarkus-utils.disable-query-filter=false
 Add git-info plugin to pom.xml
 
 ```xml
+
 <plugin>
     <groupId>io.github.git-commit-id</groupId>
     <artifactId>git-commit-id-maven-plugin</artifactId>
@@ -87,6 +95,7 @@ GitResource.loadInfo(this.getClass().getClassLoader().getResourceAsStream("git.j
 ## Entities:
 
 ```java
+
 @Entity
 public class YourEntity extends BaseEntity<Long> {
  ...
@@ -96,6 +105,7 @@ public class YourEntity extends BaseEntity<Long> {
 ## Repository:
 
 ```java
+
 @ApplicationScoped
 @Unremovable // As repository is injected via reflection in the resource this annotation is needed
 public class YourRepository extends PanacheRepositoryBase<User, Long> {
@@ -107,13 +117,25 @@ public class YourRepository extends PanacheRepositoryBase<User, Long> {
 ## Resources:
 
 ```java
+
 @Path("/your-resource")
 public class YourResource extends CrudResource<YourRepository, YourEntity, Long> {
   ...
 }}
 ```
 
+## Tuples
+
+Simple generic tuple records (2-6 elements)
+
+```java
+new TupleOf2<String, Integer>("name",total);
+		new TupleOf3<String, String, Integer>("firstname","lastname",total);
+		...
+```
+
 ## DateUtils
+
 Useful to parse ISO strings from requests (optional or mandatory)
 
 - `Optional<Date> DateUtils.parseOptional(String isoDate)`

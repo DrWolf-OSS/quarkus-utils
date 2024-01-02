@@ -18,7 +18,7 @@
         <skipITs>true</skipITs>
     </properties>
 
-    <version>${quarkus.platform.version}.1</version>
+    <version>${quarkus.platform.version}.2</version>
 
     <dependencyManagement>
         <dependencies>
@@ -48,7 +48,6 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>6.2.1.Final</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

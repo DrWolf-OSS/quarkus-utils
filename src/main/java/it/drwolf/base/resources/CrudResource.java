@@ -64,6 +64,7 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 					.map(old -> this.getRepository().getEntityManager().merge(entity))
 					.orElseThrow(NotFoundException::new);
 		});
+		this.repository.getEntityManager().clear();
 		return get(id);
 	}
 }

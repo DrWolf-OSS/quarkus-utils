@@ -1,6 +1,9 @@
 package it.drwolf.base.resources;
 
+import java.lang.reflect.ParameterizedType;
+
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.narayana.jta.QuarkusTransaction;
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import it.drwolf.base.model.dtos.PageDTO;
@@ -9,8 +12,6 @@ import it.drwolf.base.utils.HasLogger;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
-
-import java.lang.reflect.ParameterizedType;
 
 public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E extends BaseEntity<I>, I>
 		implements HasLogger {
@@ -54,12 +55,15 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 	}
 
 	public E update(I id, E entity) {
-		if (!entity.getId().equals(id)) {
-			throw new BadRequestException();
-		}
-		return this.getRepository()
-				.findByIdOptional(id)
-				.map(old -> this.getRepository().getEntityManager().merge(entity))
-				.orElseThrow(NotFoundException::new);
+		QuarkusTransaction.requiringNew().run(() -> {
+			if (!entity.getId().equals(id)) {
+				throw new BadRequestException();
+			}
+			this.getRepository()
+					.findByIdOptional(id)
+					.map(old -> this.getRepository().getEntityManager().merge(entity))
+					.orElseThrow(NotFoundException::new);
+		});
+		return get(id);
 	}
 }

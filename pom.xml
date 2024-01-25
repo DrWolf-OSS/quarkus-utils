@@ -14,11 +14,11 @@
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.6.4</quarkus.platform.version>
+        <quarkus.platform.version>3.6.7</quarkus.platform.version>
         <skipITs>true</skipITs>
     </properties>
 
-    <version>${quarkus.platform.version}.4</version>
+    <version>${quarkus.platform.version}.1</version>
 
     <dependencyManagement>
         <dependencies>

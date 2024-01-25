@@ -33,8 +33,10 @@ public abstract class CrudResource<T extends PanacheRepositoryBase<E, I>, E exte
 	}
 
 	public E add(E entity) {
-		this.getRepository().persist(entity);
-		return entity;
+		QuarkusTransaction.requiringNew().run(() -> {
+			this.getRepository().persist(entity);
+		});
+		return get(entity.getId());
 	}
 
 	public boolean delete(I id) {

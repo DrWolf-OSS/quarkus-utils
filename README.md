@@ -89,7 +89,11 @@ Add git-info plugin to pom.xml
 @ Startup do
 
 ```java
-GitResource.loadInfo(this.getClass().getClassLoader().getResourceAsStream("git.json"));
+GitResource.loadInfo(this.getClass().
+
+getClassLoader().
+
+getResourceAsStream("git.json"));
 ```
 
 ## Entities:
@@ -115,6 +119,9 @@ public class YourRepository extends PanacheRepositoryBase<User, Long> {
 ```
 
 ## Resources:
+
+**Don't use `@Transactional` annotation when calling `super.add(...)`,
+`super.update(...)` and `super.delete(...)`**
 
 ```java
 

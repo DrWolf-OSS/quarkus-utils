@@ -18,7 +18,7 @@
         <skipITs>true</skipITs>
     </properties>
 
-    <version>${quarkus.platform.version}.1</version>
+    <version>${quarkus.platform.version}.2</version>
 
     <dependencyManagement>
         <dependencies>

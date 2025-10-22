@@ -2,6 +2,7 @@ package it.drwolf.base.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,19 +25,37 @@ public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLo
 	@Context
 	HttpServerRequest request;
 
+	private boolean isExpiredToken(Throwable throwable) {
+		return Stream.iterate(throwable, Objects::nonNull, Throwable::getCause).anyMatch(current -> {
+			String message = current.getMessage();
+			return message != null && (message.contains("SRJWT07000") || message.toLowerCase()
+					.contains("jwt is no longer valid"));
+		});
+	}
+
+	private String resolveMessage(Throwable throwable) {
+		return Stream.iterate(throwable, Objects::nonNull, Throwable::getCause)
+				.map(Throwable::getMessage)
+				.filter(msg -> msg != null && !msg.isBlank())
+				.findFirst()
+				.orElse("JWT expired");
+	}
+
 	@Override
 	public Response toResponse(Exception e) {
 		Response.ResponseBuilder builder;
 
-		StringWriter sw = new StringWriter();
-		e.printStackTrace(new PrintWriter(sw));
+		if (isExpiredToken(e)) {
+			this.logger().warn(this.request.method() + " " + this.request.uri() + " -> " + resolveMessage(e));
+		} else {
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
 
-		String logTxt = sw.toString();
+			String logTxt = sw.toString();
 
-		if (!logTxt.contains("SRJWT07000")) {
 			this.logger()
-					.error(Stream.concat(Stream.of(this.request.method() + " " + this.request.uri()), logTxt.lines().limit(limit))
-							.collect(Collectors.joining("\n")));
+					.error(Stream.concat(Stream.of(this.request.method() + " " + this.request.uri()),
+							logTxt.lines().limit(limit)).collect(Collectors.joining("\n")));
 		}
 
 		if (e instanceof WebApplicationException wae) {

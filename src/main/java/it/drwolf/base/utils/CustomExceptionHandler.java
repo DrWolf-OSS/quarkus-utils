@@ -49,7 +49,7 @@ public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLo
 		e.printStackTrace(new PrintWriter(sw));
 		String logTxt = sw.toString();
 
-		if (isExpiredToken(e) || logTxt.contains("The JWT is no longer valid")) {
+		if (isExpiredToken(e) || logTxt.toLowerCase().contains("jwt is no longer valid")) {
 			this.logger().warn(this.request.method() + " " + this.request.uri() + " -> " + resolveMessage(e));
 		} else {
 			this.logger()

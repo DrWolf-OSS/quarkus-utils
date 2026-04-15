@@ -45,14 +45,13 @@ public class CustomExceptionHandler implements ExceptionMapper<Exception>, HasLo
 	public Response toResponse(Exception e) {
 		Response.ResponseBuilder builder;
 
-		if (isExpiredToken(e)) {
+		StringWriter sw = new StringWriter();
+		e.printStackTrace(new PrintWriter(sw));
+		String logTxt = sw.toString();
+
+		if (isExpiredToken(e) || logTxt.contains("The JWT is no longer valid")) {
 			this.logger().warn(this.request.method() + " " + this.request.uri() + " -> " + resolveMessage(e));
 		} else {
-			StringWriter sw = new StringWriter();
-			e.printStackTrace(new PrintWriter(sw));
-
-			String logTxt = sw.toString();
-
 			this.logger()
 					.error(Stream.concat(Stream.of(this.request.method() + " " + this.request.uri()),
 							logTxt.lines().limit(limit)).collect(Collectors.joining("\n")));

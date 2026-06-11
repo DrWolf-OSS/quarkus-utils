@@ -20,7 +20,7 @@ Add dependency:
     <groupId>com.github.drwolf-oss</groupId>
     <artifactId>quarkus-utils</artifactId>
     <!-- check available tags: https://github.com/DrWolf-OSS/quarkus-utils/tags -->
-    <version>${quarkus.platform.version}.3</version>
+    <version>${quarkus.platform.version}.2</version>
 </dependency>
 ```
 

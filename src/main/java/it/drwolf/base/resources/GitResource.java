@@ -1,13 +1,15 @@
 package it.drwolf.base.resources;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import it.drwolf.base.utils.HasLogger;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import it.drwolf.base.utils.HasLogger;
+import jakarta.annotation.security.PermitAll;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 @Path("/git")
 public class GitResource implements HasLogger {
@@ -22,6 +24,7 @@ public class GitResource implements HasLogger {
 		}
 	}
 
+	@PermitAll
 	@GET
 	public Map<String, Object> info() {
 		return info;

@@ -34,10 +34,5 @@ jobs:
         role-to-assume: arn:aws:iam::010112784456:role/github-quarkus-utils
         aws-region: eu-west-1
 
-    - uses: jakejarvis/s3-sync-action@master
-      name: Upload to S3
-      env:
-        AWS_S3_BUCKET: 'drwolf-maven-public'
-        AWS_REGION: 'eu-west-1' 
-        SOURCE_DIR: 'target/repo/com/github/drwolf-oss/${{ github.event.repository.name }}'
-        DEST_DIR: 'com/github/drwolf-oss/${{ github.event.repository.name }}'
+    - name: Upload to S3
+      run: aws s3 sync "target/repo/com/github/drwolf-oss/${{ github.event.repository.name }}" "s3://drwolf-maven-public/com/github/drwolf-oss/${{ github.event.repository.name }}"
